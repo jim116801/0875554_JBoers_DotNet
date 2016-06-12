@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Keuzevak.Models.Adres>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Addresses</h2>
+
+@using (Html.BeginForm("Index", "Address", FormMethod.Get))
+{
+    <p>
+        @Html.DropDownList("address", "All")
+    </p>
+    <p>
+        Search address: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" class="btn btn-primary" />
+    <br/>
+        Click on the blue column titles to order the table
+    </p>
+}
+<table>
+    <tr>
+        <th>
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm, searchString = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Longitude", "Index", new { sortOrder = ViewBag.LongitudeSortParm, searchString = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Latitude", "Index", new { sortOrder = ViewBag.LatitudeSortParm, searchString = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.AddressSortParm, searchString = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Longitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Latitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+        </tr>
+    }
+</table>
+
